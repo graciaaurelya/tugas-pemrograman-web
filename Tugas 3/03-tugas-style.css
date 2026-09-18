@@ -1,0 +1,38 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap');
+
+/* 1. Reset Global & Box Model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --ink: #1c1917;
+    --paper: #f2ede4;
+    --card-bg: #fffdf9;
+    --accent: #c2410c;
+    --accent-dim: #9a3412;
+    --line: #1c1917;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image: radial-gradient(var(--ink) 0.6px, transparent 0.6px);
+    background-size: 22px 22px;
+    background-attachment: fixed;
+    padding: 40px 16px 72px;
+}
+
+img,
+video {
+    max-width: 100%;
+    display: block;
+}
+
