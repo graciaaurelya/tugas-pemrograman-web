@@ -176,3 +176,13 @@ video {
     padding: 4px;
     background-color: var(--card-bg);
 }
+
+/* 5. Modifier: lecture-card--featured */
+.lecture-card--featured {
+    border-top: 4px solid var(--accent);
+}
+
+.lecture-card--featured .lecture-card__description {
+    color: var(--accent-dim);
+    font-weight: 600;
+}
