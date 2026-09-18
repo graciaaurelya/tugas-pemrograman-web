@@ -123,3 +123,56 @@ video {
     padding: 4px 10px;
     border-radius: 2px;
 }
+
+/* Element: isi kartu */
+.lecture-card__body {
+    padding: 22px 22px 24px;
+}
+
+.lecture-card__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    padding-bottom: 14px;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--line);
+}
+
+/* Video  */
+.lecture-card__video {
+    width: 100%;
+    border-radius: 4px;
+    border: 2px solid var(--line);
+    background-color: #000000;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.lecture-card__description {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #4a4238;
+    margin-bottom: 18px;
+}
+
+.lecture-card__audio-label {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-dim);
+    margin-bottom: 8px;
+}
+
+.lecture-card__audio {
+    width: 100%;
+    border: 2px solid var(--line);
+    border-radius: 4px;
+    padding: 4px;
+    background-color: var(--card-bg);
+}
