@@ -68,3 +68,20 @@ video {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 36px;
 }
+
+/* 4. Block: lecture-card */
+.lecture-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border: 2px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 7px 7px 0 var(--line);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lecture-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 11px 11px 0 var(--line);
+}
