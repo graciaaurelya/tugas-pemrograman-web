@@ -1,0 +1,21 @@
+/* 1. Token desain */
+:root {
+    --color-ink: #17222b;
+    --color-muted: #55636f;
+    --color-bg: #f4f6f8;
+    --color-surface: #ffffff;
+    --color-line: #d5dce2;
+    --color-brand: #0d4f63;
+    --color-brand-dark: #093949;
+    --color-mark: #c9891c;
+
+    --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --font-heading: Georgia, "Times New Roman", serif;
+
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --radius: 6px;
+    --sidebar-width: 200px;
+    --aside-width: 220px;
+}
