@@ -1,16 +1,38 @@
+/*
+    Tugas Mandiri Modul 4: Portal Jurnal Ilmiah Multi Kolom
+    Nama : Gracia Aurelya
+    NIM  : D121241095
+
+    Struktur berkas:
+    1. Token desain
+    2. Dasar dan aksesibilitas
+    3. Header navigasi (Flexbox)
+    4. Layout utama (CSS Grid)
+    5. Panel sidebar dan kolom kanan
+    6. Grid mikro kartu artikel
+    7. Footer
+
+    Pendekatan mobile first. Titik henti:
+    768px  tablet, kolom kanan turun ke bawah
+    992px  desktop, tiga kolom 200px / fleksibel / 220px
+
+    Font dimuat lewat tag link di HTML (Familjen Grotesk dan Atkinson Hyperlegible).
+*/
+
 /* 1. Token desain */
 :root {
-    --color-ink: #17222b;
-    --color-muted: #55636f;
-    --color-bg: #f4f6f8;
+    --color-ink: #111827;
+    --color-muted: #4b5563;
+    --color-bg: #f9fafb;
     --color-surface: #ffffff;
-    --color-line: #d5dce2;
-    --color-brand: #0d4f63;
-    --color-brand-dark: #093949;
-    --color-mark: #c9891c;
+    --color-line: #e5e7eb;
 
-    --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-    --font-heading: Georgia, "Times New Roman", serif;
+    --color-brand: #12355b;
+    --color-brand-dark: #0b2240;
+    --color-accent: #2563eb;
+
+    --font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+    --font-heading: 'Familjen Grotesk', system-ui, sans-serif;
 
     --space-1: 0.5rem;
     --space-2: 1rem;
@@ -21,24 +43,33 @@
 }
 
 /* 2. Dasar dan aksesibilitas */
+/* Body berupa kolom Flexbox setinggi layar agar footer selalu di bawah */
 body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     margin: 0;
     background: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-body);
+    font-weight: 400;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3 {
     font-family: var(--font-heading);
+    font-weight: 600;
     line-height: 1.3;
+    letter-spacing: -0.02em;
 }
 
 a:focus-visible,
 button:focus-visible {
-    outline: 3px solid var(--color-mark);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
 }
 
@@ -67,7 +98,6 @@ button:focus-visible {
     padding: var(--space-2) var(--space-3);
     background: var(--color-brand);
     color: #ffffff;
-    border-bottom: 4px solid var(--color-mark);
 }
 
 .site-brand {
@@ -80,19 +110,20 @@ button:focus-visible {
 
 .site-brand__title {
     font-family: var(--font-heading);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .site-brand__sub {
-    font-size: 0.9rem;
-    opacity: 0.85;
+    font-size: 0.8rem;
+    font-weight: 400;
 }
 
 .nav-toggle {
     display: none;
     padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid #ffffff;
     border-radius: var(--radius);
     background: transparent;
     color: #ffffff;
@@ -101,7 +132,7 @@ button:focus-visible {
 }
 
 .nav-toggle:hover {
-    background: var(--color-brand-dark);
+    background: rgba(255, 255, 255, 0.16);
 }
 
 .site-nav {
@@ -120,19 +151,22 @@ button:focus-visible {
 
 .site-nav__link {
     display: block;
-    padding: 0.6rem 0.75rem;
+    padding: 0.45rem 0.85rem;
     border-radius: var(--radius);
     color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 0.925rem;
+    font-weight: 600;
     text-decoration: none;
 }
 
 .site-nav__link:hover {
-    background: var(--color-brand-dark);
+    background: rgba(255, 255, 255, 0.16);
 }
 
 .site-nav__link.is-active {
-    background: var(--color-brand-dark);
-    box-shadow: inset 4px 0 0 var(--color-mark);
+    background: #ffffff;
+    color: var(--color-brand);
 }
 
 /* Menu ponsel hanya disembunyikan bila JavaScript aktif */
@@ -152,6 +186,7 @@ button:focus-visible {
 
 /* Ponsel: satu kolom, seluruh bagian bertumpuk */
 .layout {
+    flex: 1 0 auto;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
@@ -159,6 +194,8 @@ button:focus-visible {
         "sidebar"
         "aside";
     gap: var(--space-3);
+    align-content: start;
+    width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     padding: var(--space-3) var(--space-2);
@@ -195,11 +232,7 @@ button:focus-visible {
 
     .site-nav__list {
         flex-direction: row;
-        gap: 0.5rem;
-    }
-
-    .site-nav__link.is-active {
-        box-shadow: inset 0 -3px 0 var(--color-mark);
+        gap: 0.25rem;
     }
 
     .layout {
@@ -233,16 +266,15 @@ button:focus-visible {
 /* 5. Panel sidebar dan kolom kanan */
 .panel {
     margin-bottom: var(--space-2);
-    padding: var(--space-2);
+    padding: var(--space-3);
     background: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-left: 4px solid var(--color-brand);
     border-radius: var(--radius);
 }
 
 .panel__title {
     margin: 0 0 var(--space-1);
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     color: var(--color-brand);
 }
 
@@ -255,7 +287,8 @@ button:focus-visible {
 .panel__list a {
     display: block;
     padding: 0.3rem 0;
-    color: var(--color-ink);
+    color: var(--color-muted);
+    font-size: 0.875rem;
     text-decoration: none;
 }
 
@@ -267,7 +300,7 @@ button:focus-visible {
 .panel__text {
     margin-bottom: var(--space-2);
     color: var(--color-muted);
-    font-size: 0.95rem;
+    font-size: 0.875rem;
 }
 
 .panel__text:last-child {
@@ -281,12 +314,13 @@ button:focus-visible {
 
 .page-heading__title {
     margin: 0 0 0.25rem;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
 }
 
 .page-heading__desc {
     margin: 0;
     color: var(--color-muted);
+    font-size: 0.875rem;
 }
 
 /* Kolom otomatis menyesuaikan lebar kolom tengah */
@@ -296,20 +330,26 @@ button:focus-visible {
     gap: var(--space-2);
 }
 
+/* Padding kartu diserahkan ke .card-body dan .card-footer milik Bootstrap */
 .articles-grid .card {
-    border-color: var(--color-line);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
     border-radius: var(--radius);
 }
 
 .articles-grid .card-title {
+    margin: 0.5rem 0;
     font-family: var(--font-heading);
-    font-size: 1.05rem;
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: var(--color-ink);
 }
 
+/* Ringkasan dibatasi tiga baris agar tinggi kartu seragam */
 .articles-grid .card-text {
     color: var(--color-muted);
-    font-size: 0.92rem;
-    /* Ringkasan dibatasi tiga baris agar tinggi kartu seragam */
+    font-size: 0.875rem;
+    line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
@@ -324,21 +364,24 @@ button:focus-visible {
     justify-content: space-between;
     gap: var(--space-1);
     background: transparent;
-    border-top: 1px solid var(--color-line);
+    border-top: none;
 }
 
 .card-meta {
     color: var(--color-muted);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 /* 7. Footer */
 .site-footer {
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-3);
     background: var(--color-brand-dark);
-    color: #ffffff;
+    color: #e6eef7;
     text-align: center;
-    font-size: 0.9rem;
+    font-family: var(--font-heading);
+    font-size: 0.825rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .site-footer p {
