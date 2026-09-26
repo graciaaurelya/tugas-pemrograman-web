@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
-    
+
     <form method="POST" action="finance.php">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <label for="type">Jenis Transaksi</label>
@@ -86,6 +86,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit">Proses Transaksi</button>
     </form>
+
+    <h2>Riwayat Transaksi</h2>
+    <?php if (empty($_SESSION['transactions'])): ?>
+        <p>Belum ada transaksi.</p>
+    <?php endif; ?>
 
 </body>
 
