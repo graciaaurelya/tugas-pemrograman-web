@@ -35,4 +35,10 @@ class Transaction
 
         return false;
     }
+
+    private function processDeposit(): bool
+    {
+        $_SESSION['balance'] += $this->amount;
+        return true;
+    }
 }
