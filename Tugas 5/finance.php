@@ -32,6 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$isValidType) {
         $errors[] = 'Jenis transaksi tidak valid.';
     }
+
+    if (!preg_match('/^\d+(\.\d{1,2})?$/', $amountRaw)) {
+        $errors[] = 'Jumlah transaksi harus berupa angka desimal positif.';
+    } elseif ((float) $amountRaw <= 0) {
+        $errors[] = 'Jumlah transaksi harus lebih besar dari nol.';
+    }
 }
 
 ?>
