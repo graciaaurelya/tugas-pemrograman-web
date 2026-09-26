@@ -27,6 +27,11 @@ $_SESSION['transactions'] ??= [];
     <p>Saldo saat ini: Rp <?= number_format((float) $_SESSION['balance'], 2, ',', '.') ?></p>
     <form method="POST" action="finance.php">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+        <label for="type">Jenis Transaksi</label>
+        <select name="type" id="type">
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Penarikan</option>
+        </select>
     </form>
 
 </body>
