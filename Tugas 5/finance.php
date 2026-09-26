@@ -38,6 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ((float) $amountRaw <= 0) {
         $errors[] = 'Jumlah transaksi harus lebih besar dari nol.';
     }
+
+    if (empty($errors)) {
+        $amount = (float) $amountRaw;
+        $id = uniqid('trx_', true);
+        $transaction = new Transaction($id, $type, $amount);
+
+        if ($transaction->process()) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        } else {
+            $errors[] = 'Saldo tidak mencukupi untuk melakukan penarikan.';
+        }
+    }
 }
 
 ?>
