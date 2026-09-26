@@ -64,6 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h1>Sistem Manajemen Keuangan Sederhana</h1>
     <p>Saldo saat ini: Rp <?= number_format((float) $_SESSION['balance'], 2, ',', '.') ?></p>
+
+    <?php if (!empty($errors)): ?>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+    
     <form method="POST" action="finance.php">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <label for="type">Jenis Transaksi</label>
