@@ -33,7 +33,22 @@ class Transaction
 
         $_SESSION['balance'] ??= 0.0;
 
-        return false;
+        $success = match ($this->type) {
+            'deposit' => $this->processDeposit(),
+            'withdraw' => $this->processWithdraw(),
+            default => false,
+        };
+ 
+        if ($success) {
+            $_SESSION['transactions'][] = [
+                'id' => $this->id,
+                'type' => $this->type,
+                'amount' => $this->amount,
+            ];
+        }
+ 
+        return $success;
+
     }
 
     private function processDeposit(): bool
@@ -42,7 +57,7 @@ class Transaction
         return true;
     }
 
-    private function processWithdrawal(): bool
+    private function processWithdraw(): bool
     {
         if ($_SESSION['balance'] < $this->amount) {
             return false;
