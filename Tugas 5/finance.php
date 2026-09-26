@@ -18,6 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf_token'], $postToken)) {
         die('Kesalahan Keamanan: Token CSRF tidak cocok.');
     }
+
+    $type = $_POST['type'] ?? '';
+    $amountRaw = trim($_POST['amount'] ?? '');
+
+    $errors = [];
+
+    $isValidType = match ($type) {
+        'deposit', 'withdraw' => true,
+        default => false,
+    };
+
+    if (!$isValidType) {
+        $errors[] = 'Jenis transaksi tidak valid.';
+    }
 }
 
 ?>
