@@ -13,6 +13,13 @@ if (empty($_SESSION['csrf_token'])) {
 $_SESSION['balance'] ??= 0.0;
 $_SESSION['transactions'] ??= [];
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $postToken = $_POST['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $postToken)) {
+        die('Kesalahan Keamanan: Token CSRF tidak cocok.');
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -32,7 +39,7 @@ $_SESSION['transactions'] ??= [];
             <option value="deposit">Deposit</option>
             <option value="withdraw">Penarikan</option>
         </select>
-        
+
         <label for="amount">Jumlah</label>
         <input type="text" name="amount" id="amount">
 
