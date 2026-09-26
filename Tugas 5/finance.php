@@ -32,6 +32,11 @@ $_SESSION['transactions'] ??= [];
             <option value="deposit">Deposit</option>
             <option value="withdraw">Penarikan</option>
         </select>
+        
+        <label for="amount">Jumlah</label>
+        <input type="text" name="amount" id="amount">
+
+        <button type="submit">Proses Transaksi</button>
     </form>
 
 </body>
