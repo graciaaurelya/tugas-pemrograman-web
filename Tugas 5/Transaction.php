@@ -8,8 +8,7 @@ class Transaction
         private string $id,
         private string $type,
         private float $amount
-    ) {
-    }
+    ) {}
 
     public function getId(): string
     {
@@ -24,5 +23,16 @@ class Transaction
     public function getAmount(): float
     {
         return $this->amount;
+    }
+
+    public function process(): bool
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $_SESSION['balance'] ??= 0.0;
+
+        return false;
     }
 }
