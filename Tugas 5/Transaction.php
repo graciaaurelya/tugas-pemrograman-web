@@ -41,4 +41,14 @@ class Transaction
         $_SESSION['balance'] += $this->amount;
         return true;
     }
+
+    private function processWithdrawal(): bool
+    {
+        if ($_SESSION['balance'] < $this->amount) {
+            return false;
+        }
+
+        $_SESSION['balance'] -= $this->amount;
+        return true;
+    }
 }
