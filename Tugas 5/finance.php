@@ -90,6 +90,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>Riwayat Transaksi</h2>
     <?php if (empty($_SESSION['transactions'])): ?>
         <p>Belum ada transaksi.</p>
+    <?php else: ?>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Jenis</th>
+                    <th>Jumlah</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_SESSION['transactions'] as $t): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($t['id']) ?></td>
+                        <td><?= htmlspecialchars($t['type'] === 'deposit' ? 'Deposit' : 'Penarikan') ?></td>
+                        <td><?= htmlspecialchars(number_format((float) $t['amount'], 2, ',', '.')) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     <?php endif; ?>
 
 </body>
