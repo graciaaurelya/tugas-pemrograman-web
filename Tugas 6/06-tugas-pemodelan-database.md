@@ -109,3 +109,54 @@ Syarat: memenuhi 2NF dan tidak ada atribut bukan kunci yang bergantung pada atri
 | `peminjaman` | peminjaman_id | nim, buku_id | tgl_pinjam, tgl_jatuh_tempo, tgl_kembali |
 
 Hasil: tidak ada kelompok berulang (1NF), tidak ada ketergantungan parsial (2NF), dan tidak ada ketergantungan transitif (3NF). Anomali sisip, hapus, dan pembaruan teratasi. Contohnya, penerbit baru dapat dicatat tanpa harus ada bukunya, dan perubahan kota penerbit cukup dilakukan pada satu baris.
+
+## 4. Rancangan Tabel Akhir
+
+### 4.1 Tabel `penerbit`
+
+| Kolom | Tipe Data | Kunci | Constraint | Keterangan |
+|---|---|---|---|---|
+| penerbit_id | INT UNSIGNED | PK | AUTO_INCREMENT, NOT NULL | Identitas unik penerbit |
+| nama_penerbit | VARCHAR(100) | | NOT NULL, UNIQUE | Nama penerbit |
+| kota | VARCHAR(50) | | NULL | Kota kedudukan penerbit |
+
+### 4.2 Tabel `buku`
+
+| Kolom | Tipe Data | Kunci | Constraint | Keterangan |
+|---|---|---|---|---|
+| buku_id | INT UNSIGNED | PK | AUTO_INCREMENT, NOT NULL | Identitas unik buku |
+| isbn | CHAR(13) | | NOT NULL, UNIQUE | Nomor ISBN buku |
+| judul | VARCHAR(200) | | NOT NULL | Judul buku |
+| tahun_terbit | SMALLINT UNSIGNED | | NOT NULL | Tahun terbit |
+| stok | SMALLINT UNSIGNED | | NOT NULL, DEFAULT 0 | Jumlah eksemplar tersedia |
+| penerbit_id | INT UNSIGNED | FK | NOT NULL | Merujuk penerbit.penerbit_id |
+
+### 4.3 Tabel `mahasiswa`
+
+| Kolom | Tipe Data | Kunci | Constraint | Keterangan |
+|---|---|---|---|---|
+| nim | CHAR(10) | PK | NOT NULL | Nomor induk mahasiswa |
+| nama_mhs | VARCHAR(100) | | NOT NULL | Nama lengkap mahasiswa |
+| prodi | VARCHAR(50) | | NOT NULL | Program studi |
+
+### 4.4 Tabel `peminjaman`
+
+| Kolom | Tipe Data | Kunci | Constraint | Keterangan |
+|---|---|---|---|---|
+| peminjaman_id | INT UNSIGNED | PK | AUTO_INCREMENT, NOT NULL | Identitas unik transaksi |
+| nim | CHAR(10) | FK | NOT NULL | Merujuk mahasiswa.nim |
+| buku_id | INT UNSIGNED | FK | NOT NULL | Merujuk buku.buku_id |
+| tgl_pinjam | DATE | | NOT NULL | Tanggal buku dipinjam |
+| tgl_jatuh_tempo | DATE | | NOT NULL | Batas tanggal pengembalian |
+| tgl_kembali | DATE | | NULL | Tanggal dikembalikan, NULL jika belum kembali |
+
+### 4.5 Aturan Integritas Referensial
+
+| Foreign Key | Merujuk | ON DELETE | ON UPDATE | Alasan |
+|---|---|---|---|---|
+| buku.penerbit_id | penerbit.penerbit_id | RESTRICT | CASCADE | Penerbit tidak boleh dihapus selama masih punya buku |
+| peminjaman.nim | mahasiswa.nim | RESTRICT | CASCADE | Riwayat peminjaman wajib dipertahankan |
+| peminjaman.buku_id | buku.buku_id | RESTRICT | CASCADE | Riwayat peminjaman wajib dipertahankan |
+
+`ON DELETE CASCADE` sengaja tidak dipakai pada `peminjaman` karena menghapus mahasiswa atau buku akan ikut menghapus data historis transaksi secara berantai dan tidak dapat dipulihkan.
+
