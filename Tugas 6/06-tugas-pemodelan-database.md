@@ -35,3 +35,16 @@ Asumsi perancangan:
 | mahasiswa ke peminjaman | 1 : N | Satu mahasiswa dapat melakukan banyak peminjaman |
 | buku ke peminjaman | 1 : N | Satu buku dapat muncul pada banyak riwayat peminjaman |
 | mahasiswa ke buku | M : N | Diurai oleh tabel `peminjaman` sebagai tabel penghubung |
+
+# 3. Simulasi Normalisasi
+
+### 3.1 Bentuk Tidak Normal (UNF)
+
+Seluruh data dicatat dalam satu tabel. Kolom terakhir berisi kelompok data berulang (lebih dari satu buku dalam satu sel).
+
+| NIM | Nama_Mhs | Prodi | Buku Dipinjam {ISBN, Judul, Tahun, Stok, Penerbit, Kota_Penerbit, Tgl_Pinjam, Jatuh_Tempo, Tgl_Kembali} |
+|---|---|---|---|
+| D121241001 | Rian | Teknik Informatika | {9786020001001, Basis Data, 2020, 5, Informatika, Bandung, 01 Sep 2026, 08 Sep 2026, 07 Sep 2026}, {9786020002002, Algoritma, 2019, 3, Gramedia, Jakarta, 01 Sep 2026, 08 Sep 2026, 07 Sep 2026} |
+| D121241002 | Akbar | Teknik Elektro | {9786020001001, Basis Data, 2020, 5, Informatika, Bandung, 03 Sep 2026, 10 Sep 2026, NULL} |
+
+Masalah: kolom terakhir memuat banyak nilai dalam satu sel, sehingga tabel belum memenuhi syarat paling dasar.
