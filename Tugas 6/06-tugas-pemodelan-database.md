@@ -160,3 +160,77 @@ Hasil: tidak ada kelompok berulang (1NF), tidak ada ketergantungan parsial (2NF)
 
 `ON DELETE CASCADE` sengaja tidak dipakai pada `peminjaman` karena menghapus mahasiswa atau buku akan ikut menghapus data historis transaksi secara berantai dan tidak dapat dipulihkan.
 
+## 5. Visualisasi Relasi Kunci
+
+### 5.1 Diagram Mermaid
+
+```mermaid
+%%{init: {'theme': 'default'}}%%
+erDiagram
+    penerbit ||--o{ buku : menerbitkan
+    mahasiswa ||--o{ peminjaman : melakukan
+    buku ||--o{ peminjaman : dipinjam_dalam
+
+    penerbit {
+        INT_UNSIGNED penerbit_id PK
+        VARCHAR_100 nama_penerbit
+        VARCHAR_50 kota
+    }
+
+    buku {
+        INT_UNSIGNED buku_id PK
+        CHAR_13 isbn
+        VARCHAR_200 judul
+        SMALLINT_UNSIGNED tahun_terbit
+        SMALLINT_UNSIGNED stok
+        INT_UNSIGNED penerbit_id FK
+    }
+
+    mahasiswa {
+        CHAR_10 nim PK
+        VARCHAR_100 nama_mhs
+        VARCHAR_50 prodi
+    }
+
+    peminjaman {
+        INT_UNSIGNED peminjaman_id PK
+        CHAR_10 nim FK
+        INT_UNSIGNED buku_id FK
+        DATE tgl_pinjam
+        DATE tgl_jatuh_tempo
+        DATE tgl_kembali
+    }
+```
+
+### 5.2 Diagram Alur Teks
+
+```text
+penerbit
+  penerbit_id (PK) ..... nama_penerbit, kota
+        |
+        | 1 : N
+        v
+buku
+  buku_id (PK) ......... isbn, judul, tahun_terbit, stok
+  penerbit_id (FK) ---- penerbit.penerbit_id
+        |
+        | 1 : N
+        v
+peminjaman
+  peminjaman_id (PK) ... tgl_pinjam, tgl_jatuh_tempo, tgl_kembali
+  nim (FK) ------------ mahasiswa.nim
+  buku_id (FK) -------- buku.buku_id
+        ^
+        | 1 : N
+        |
+mahasiswa
+  nim (PK) ............. nama_mhs, prodi
+```
+
+Pembacaan diagram:
+
+1. Tabel `peminjaman` berperan sebagai tabel penghubung relasi many to many antara `mahasiswa` dan `buku`.
+2. Satu penerbit dapat memiliki banyak buku, sedangkan satu buku hanya memiliki satu penerbit.
+3. Setiap Foreign Key wajib merujuk nilai yang benar-benar ada di tabel induk.
+
+
