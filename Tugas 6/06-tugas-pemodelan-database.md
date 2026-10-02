@@ -48,3 +48,16 @@ Seluruh data dicatat dalam satu tabel. Kolom terakhir berisi kelompok data berul
 | D121241002 | Akbar | Teknik Elektro | {9786020001001, Basis Data, 2020, 5, Informatika, Bandung, 03 Sep 2026, 10 Sep 2026, NULL} |
 
 Masalah: kolom terakhir memuat banyak nilai dalam satu sel, sehingga tabel belum memenuhi syarat paling dasar.
+
+### 3.2 Konversi ke 1NF
+
+Syarat: setiap sel hanya berisi satu nilai atomik dan tidak ada kelompok data berulang. Kelompok buku dipecah menjadi baris tersendiri. Kunci utama menjadi kunci komposit **(NIM, ISBN, Tgl_Pinjam)**.
+
+| NIM (PK) | ISBN (PK) | Tgl_Pinjam (PK) | Nama_Mhs | Prodi | Judul | Tahun | Stok | Penerbit | Kota_Penerbit | Jatuh_Tempo | Tgl_Kembali |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| D121241001 | 9786020001001 | 01 Sep 2026 | Rian | Teknik Informatika | Basis Data | 2020 | 5 | Informatika | Bandung | 08 Sep 2026 | 07 Sep 2026 |
+| D121241001 | 9786020002002 | 01 Sep 2026 | Rian | Teknik Informatika | Algoritma | 2019 | 3 | Gramedia | Jakarta | 08 Sep 2026 | 07 Sep 2026 |
+| D121241002 | 9786020001001 | 03 Sep 2026 | Akbar | Teknik Elektro | Basis Data | 2020 | 5 | Informatika | Bandung | 10 Sep 2026 | NULL |
+
+Masalah yang tersisa: terjadi redundansi. Nama dan prodi Rian ditulis ulang pada setiap buku yang ia pinjam, dan data buku "Basis Data" ditulis ulang pada setiap peminjamnya.
+
