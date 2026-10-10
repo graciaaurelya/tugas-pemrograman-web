@@ -22,4 +22,8 @@ class GuestBook
     {
 
     }
+
+    public function buatTabel(): void
+    {
+    }
 }
