@@ -2,7 +2,7 @@
 declare(strict_types=1);
  
 session_start();
-require_once __DIR__ . '/GuestBook.php';
+require_once __DIR__ . '/Guestbook.php';
  
 // Konfigurasi koneksi database (sesuaikan dengan lingkungan lokal)
 $host = 'localhost';
