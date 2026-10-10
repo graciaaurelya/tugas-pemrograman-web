@@ -53,5 +53,15 @@ class GuestBook
         ]);
     }
 
-
+    public function semua(): array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT id, nama, email, pesan, tanggal_kirim
+             FROM buku_tamu
+             ORDER BY tanggal_kirim DESC, id DESC'
+        );
+        $stmt->execute();
+ 
+        return $stmt->fetchAll();
+    }
 }
